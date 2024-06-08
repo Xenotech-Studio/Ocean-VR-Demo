@@ -40,7 +40,7 @@ Shader "Davis3D/OceanEnviroment/Shader_Jellyfish"
 		#include "Lighting.cginc"
 		#pragma target 3.0
 		#pragma shader_feature_local _VERTEXANIMATION_ON_ON
-		#include "Assets/Davis3D/OceanEnvironmentPack/Shaders/Functions/Davis3DUtils.cginc"
+		#include "Assets/Art/OceanEnvironmentPack/Shaders/Functions/Davis3DUtils.cginc"
 		#ifdef UNITY_PASS_SHADOWCASTER
 			#undef INTERNAL_DATA
 			#undef WorldReflectionVector

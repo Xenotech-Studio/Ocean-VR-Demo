@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useContentProtect: 0
   handTracking: 0
-  openMRC: 1
+  openMRC: 0
   faceTracking: 0
   lipsyncTracking: 0
   eyeTracking: 0
@@ -22,13 +22,13 @@ MonoBehaviour:
   enableETFR: 0
   latelatching: 0
   latelatchingDebug: 0
-  enableSubsampled: 0
+  enableSubsampled: 1
   bodyTracking: 0
   adaptiveResolution: 0
-  stageMode: 0
+  stageMode: 1
   videoSeeThrough: 0
   spatialAnchor: 0
-  superResolution: 0
+  superResolution: 1
   normalSharpening: 0
   qualitySharpening: 0
   fixedFoveatedSharpening: 0
