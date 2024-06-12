@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Rendering.PostProcessing;
 
-public class OceanDemoInput : MonoBehaviour
+public class OceanDemo : MonoBehaviour
 {
     
     public bool PressYToReloadScene = true;
@@ -22,6 +22,11 @@ public class OceanDemoInput : MonoBehaviour
     public Transform PlayerAnchor;
     
     public UnityEvent OnEnterPortal;
+
+    public AnimationCurve OpenEyeCurve;
+    public float OpenEyeDuration = 5.0f;
+    public PostProcessVolume PostProcessVolume;
+    public float _openEyeTimer = 0.0f;
 
     // Update is called once per frame
     void Update()
@@ -47,6 +52,25 @@ public class OceanDemoInput : MonoBehaviour
             {
                 OnEnterPortal?.Invoke();
                 Portal.GetComponent<Animator>().SetBool("IsOpen", false);
+            }
+        }
+        
+        // Open the eye
+        if (PostProcessVolume != null)
+        {
+            _openEyeTimer += Time.deltaTime;
+            if (_openEyeTimer < OpenEyeDuration)
+            {
+                PostProcessVolume.gameObject.SetActive(true);
+                PostProcessLayer.enabled = true;
+                _openEyeTimer += Time.deltaTime;
+                PostProcessVolume.profile.GetSetting<Vignette>().intensity.value
+                    = 1 - OpenEyeCurve.Evaluate(_openEyeTimer / OpenEyeDuration);
+            }
+            else
+            {
+                PostProcessVolume.gameObject.SetActive(false);
+                PostProcessLayer.enabled = false;
             }
         }
     }
