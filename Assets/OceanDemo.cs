@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,6 +28,12 @@ public class OceanDemo : MonoBehaviour
     public float OpenEyeDuration = 5.0f;
     public PostProcessVolume PostProcessVolume;
     public float _openEyeTimer = 0.0f;
+    public float OpenEyeTimer
+    {
+        get => _openEyeTimer;
+        set => _openEyeTimer = value;
+    }
+    public float MinPostExposure = -1.85f;
 
     // Update is called once per frame
     void Update()
@@ -61,16 +68,17 @@ public class OceanDemo : MonoBehaviour
             _openEyeTimer += Time.deltaTime;
             if (_openEyeTimer < OpenEyeDuration)
             {
-                PostProcessVolume.gameObject.SetActive(true);
-                PostProcessLayer.enabled = true;
+                //PostProcessVolume.gameObject.SetActive(true);
+                EnablePostProcessing = true;
                 _openEyeTimer += Time.deltaTime;
                 PostProcessVolume.profile.GetSetting<Vignette>().intensity.value
                     = 1 - OpenEyeCurve.Evaluate(_openEyeTimer / OpenEyeDuration);
+                PostProcessVolume.profile.GetSetting<ColorGrading>().postExposure.value
+                    = MinPostExposure * (1 - (float)Math.Sqrt((OpenEyeCurve.Evaluate(_openEyeTimer / OpenEyeDuration))));
             }
             else
             {
-                PostProcessVolume.gameObject.SetActive(false);
-                PostProcessLayer.enabled = false;
+                //PostProcessVolume.gameObject.SetActive(false);
             }
         }
     }
